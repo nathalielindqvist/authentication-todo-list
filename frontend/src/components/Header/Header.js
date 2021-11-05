@@ -6,21 +6,28 @@ import {
   Navbar,
   NavDropdown
  } from 'react-bootstrap';
+ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <div>
       <Navbar bg="primary" expand="lg" variant="dark">
   <Container>
-    <Navbar.Brand href="/">Todays ToDo</Navbar.Brand>
+    <Navbar.Brand>
+      <Link to="/">Todays ToDo</Link>
+      </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
-        <Nav.Link href="#home">My list</Nav.Link>
+        <Link className="nav-link" to="/mylist">My list</Link>
         <NavDropdown title="User" id="basic-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+          <NavDropdown.Item>
+            <Link to="#">Profile</Link>
+              </NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+          <NavDropdown.Item>
+            <Link to="#">Logout</Link>
+            </NavDropdown.Item>
         </NavDropdown>
       </Nav>
       <Form className="d-flex">
