@@ -29,7 +29,7 @@ const MyList = () => {
   }, [])
   return (
     <div>
-      <MainScreen title='Welcome back!'>
+      <MainScreen title='WELCOME BACK!'>
       <Link to="/addtask">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Add a task
