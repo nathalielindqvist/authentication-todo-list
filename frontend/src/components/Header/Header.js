@@ -7,10 +7,22 @@ import {
   NavDropdown
  } from 'react-bootstrap';
  import { Link, useNavigate } from 'react-router-dom';
+ import { useDispatch, useSelector } from 'react-redux';
+ import { logout } from '../../actions/userActions';
 
 const Header = () => {
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+  }
 
   return (
     <div>
@@ -24,16 +36,12 @@ const Header = () => {
       <Nav className="mr-auto">
         <Link className="nav-link" to="/mylist">My list</Link>
         <NavDropdown title="User" id="basic-nav-dropdown">
-          <NavDropdown.Item>
-            <Link to="#">Profile</Link>
+          <NavDropdown.Item href="#">
+            Profile
               </NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item
-            onClick={() => {
-              localStorage.removeItem("userInfo");
-              navigate("/");
-          }}>
-            {/* <Link to="#">Logout</Link> */}
+            onClick={logoutHandler}>
             Logout
             </NavDropdown.Item>
         </NavDropdown>
