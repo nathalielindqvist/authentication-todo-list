@@ -5,6 +5,7 @@ const express = require('express');
 const notes = require('./data/notes');
 const connectDB = require("./config/db");
 const userRoutes = require('./routes/userRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware')
 
 const app = express();
@@ -21,6 +22,7 @@ app.get('/api/notes', (req, res) => {
 });
 
 app.use('/api/users', userRoutes)
+app.use('/api/tasks', taskRoutes)
 
 app.use(notFound);
 app.use(errorHandler)
