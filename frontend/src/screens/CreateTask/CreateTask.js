@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { createTaskAction } from '../../actions/tasksActions';
 import Loading from '../../components/Loader/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
-import ReactMarkdown from 'react-markdown';
+import '../ProfilePage/ProfilePage.css'
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
@@ -45,7 +45,7 @@ const CreateTask = () => {
           <Card.Body>
             <Form onSubmit={submitHandler}>
               {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-              <Form.Group controlId="title">
+              <Form.Group className="inputField" controlId="title">
                 <Form.Label>Title</Form.Label>
                 <Form.Control
                 type="title"
@@ -55,7 +55,7 @@ const CreateTask = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="content">
+              <Form.Group className="inputField" controlId="content">
                 <Form.Label>Content</Form.Label>
                 <Form.Control
                 as="textarea"
@@ -65,16 +65,8 @@ const CreateTask = () => {
                 onChange={(e) => setContent(e.target.value)}
                 />
               </Form.Group>
-              {content && (
-                <Card>
-                  <Card.Header>Task preview</Card.Header>
-                  <Card.Body>
-                    <ReactMarkdown>{content}</ReactMarkdown>
-                  </Card.Body>
-                </Card>
-              )}
 
-              <Form.Group controlId="content">
+              <Form.Group className="inputField" controlId="content">
                 <Form.Label>Category</Form.Label>
                 <Form.Control
                 type="content"
