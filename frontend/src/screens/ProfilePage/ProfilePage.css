@@ -1,0 +1,27 @@
+.profilePic {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.colProfilePic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileContainer {
+  display: flex;
+  margin: 20px;
+}
+
+.inputField{
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .profileContainer {
+    flex-direction: column-reverse;
+  }
+}

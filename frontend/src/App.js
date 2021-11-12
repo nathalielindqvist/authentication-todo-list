@@ -7,6 +7,7 @@ import LoginPage from './screens/LoginPage/LoginPage';
 import RegisterPage from './screens/RegisterPage/RegisterPage';
 import MyList from './screens/MyList/MyList';
 import CreateTask from './screens/CreateTask/CreateTask';
+import ProfilePage from './screens/ProfilePage/ProfilePage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/' element={<LandingPage />} exact/>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
+        <Route path='/profile' element={<ProfilePage />} />
         <Route path='/mylist' element={<MyList />} />
         <Route path='/addtask' element={<CreateTask />} />
         </Routes>
