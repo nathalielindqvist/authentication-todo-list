@@ -1,42 +1,69 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Accordion, Button, Card, Badge } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
+import { deleteTaskAction, listTasks } from "../../actions/tasksActions";
+import Loading from "../../components/Loader/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
 
 
 const MyList = () => {
 
-  const [tasks, setTasks] = useState([]);
+  const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
+  const taskList = useSelector(state => state.taskList);
+  const { loading, tasks, error} = taskList;
+
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const taskCreate = useSelector(state => state.taskCreate);
+  const { success: successCreate } = taskCreate;
+
+  const taskDelete = useSelector(state => state.taskDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete
+  } = taskDelete;
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-
+    if (window.confirm("Have you finished this task?")) {
+      dispatch(deleteTaskAction(id));
     }
   }
 
-  const fetchNotes = async () => {
-    const {data} = await axios.get('/api/notes');
-
-    setTasks(data);
-  };
-
-  console.log(tasks)
-
   useEffect(() => {
-    fetchNotes();
-  }, [])
+    dispatch(listTasks())
+    if(!userInfo) {
+      navigate("/");
+    }
+  }, [
+    dispatch,
+    successCreate,
+    successDelete,
+    navigate,
+    userInfo
+  ])
+
   return (
     <div>
-      <MainScreen title='WELCOME BACK!'>
+      <MainScreen title={`Welcome back ${userInfo.name}`}>
       <Link to="/addtask">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Add a task
         </Button>
       </Link>
-      {
-        tasks.map(task => (
+      {errorDelete && (
+        <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
+      )}
+      {loadingDelete && <Loading />}
+      {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+      {loading && <Loading />}
+      {tasks?.map(task => (
           <Accordion key={task._id}>
             <Accordion.Item eventKey="0">
               <Card style={{ margin: 10 }}>
@@ -52,8 +79,7 @@ const MyList = () => {
                   <Accordion.Header>{task.title}</Accordion.Header>
                   </span>
                 <div>
-                  <Button href={`/task/${task._id}`}>Edit</Button>
-                  <Button variant="danger" className="mx-2" onClick={() => deleteHandler(task._id)}>Delete</Button>
+                  <Button variant="success" className="mx-2" onClick={() => deleteHandler(task._id)}>Task Complete</Button>
                 </div>
                 </Card.Header>
                 <Card.Body>
@@ -66,7 +92,10 @@ const MyList = () => {
                       {task.content}
                     </p>
                     <footer className="blockquote-footer">
-                      Created on - date
+                      Created on{" "}
+                      <cite title="Source Title">
+                        {task.createdAt.substring(0, 10)}
+                      </cite>
                     </footer>
                   </blockquote>
                   </Accordion.Body>
