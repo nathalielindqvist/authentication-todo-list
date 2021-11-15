@@ -23,12 +23,12 @@ const RegisterPage = () => {
 
   const dispatch = useDispatch();
 
-  const userRegister = useSelector(state => state.userLogin);
+  const userRegister = useSelector(state => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/mylist");
+      navigate("/");
     }
   }, [navigate, userInfo])
 

@@ -22,7 +22,7 @@ const { loading, error, userInfo } = userLogin;
 
 useEffect(() => {
  if(userInfo) {
-  navigate("/mylist")
+  navigate("/")
  }
 }, [navigate, userInfo])
 
