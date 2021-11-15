@@ -12,13 +12,14 @@ const CreateTask = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const taskCreate = useSelector(state => state.taskCreate);
-  const { loading, error } = taskCreate;
+  const { loading } = taskCreate;
 
   const resetHandler = () => {
     setTitle("");
@@ -28,7 +29,10 @@ const CreateTask = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!title || !content || !category) return;
+    if (!title || !content || !category){
+      setError("Please fill in all the fields");
+      return;
+    };
     dispatch(createTaskAction(title, content, category));
 
     resetHandler();

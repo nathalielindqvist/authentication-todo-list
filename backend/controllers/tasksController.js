@@ -11,17 +11,12 @@ const getTasks = asyncHandler(async (req, res) => {
   const createTask = asyncHandler(async (req, res) => {
     const { title, content, category } = req.body;
 
-    if(!title || !content || !category) {
-      res.status(400);
-      throw new Error("Please fill in all the fields");
-    }
-    else {
       const task = new Task({ user: req.user._id, title, content, category });
 
       const createdTask = await task.save();
 
       res.status(201).json(createdTask);
-    }
+
   });
 
   const deleteTask = asyncHandler(async (req, res) => {
