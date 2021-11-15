@@ -51,7 +51,6 @@ const ProfilePage = () => {
         method: "post",
         body: data,
       }).then((res) => res.json()).then((data) => {
-        console.log(data)
         setPic(data.url.toString());
       })
       .catch((err) => {
@@ -91,7 +90,7 @@ const ProfilePage = () => {
                   onChange={(e) => setName(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="inputField" constolId="email">
+                <Form.Group className="inputField" controlId="email">
                   <Form.Label>Email Address</Form.Label>
                   <Form.Control
                   type="email"

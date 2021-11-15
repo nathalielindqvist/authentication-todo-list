@@ -2,7 +2,6 @@
 
 const Task = require('../models/taskModel');
 const asyncHandler = require('express-async-handler');
-const notes = require('../data/notes');
 
 const getTasks = asyncHandler(async (req, res) => {
   const tasks = await Task.find({ user: req.user._id });

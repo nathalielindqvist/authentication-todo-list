@@ -60,7 +60,6 @@ const RegisterPage = () => {
         method: "post",
         body: data,
       }).then((res) => res.json()).then((data) => {
-        console.log(data)
         setPic(data.url.toString());
       })
       .catch((err) => {

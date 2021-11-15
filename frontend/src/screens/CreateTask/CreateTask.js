@@ -18,9 +18,7 @@ const CreateTask = () => {
   const navigate = useNavigate();
 
   const taskCreate = useSelector(state => state.taskCreate);
-  const { loading, error, task } = taskCreate;
-
-  console.log(task);
+  const { loading, error } = taskCreate;
 
   const resetHandler = () => {
     setTitle("");
