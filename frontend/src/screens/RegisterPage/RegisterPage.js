@@ -23,7 +23,7 @@ const RegisterPage = () => {
 
   const dispatch = useDispatch();
 
-  const userRegister = useSelector(state => state.userRegister);
+  const userRegister = useSelector(state => state.userLogin);
   const { loading, error, userInfo } = userRegister;
 
   useEffect(() => {

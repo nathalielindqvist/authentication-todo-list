@@ -20,6 +20,8 @@ const MyList = () => {
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
+  // const userInfo = localStorage.getItem("userInfo");
+
   const taskCreate = useSelector(state => state.taskCreate);
   const { success: successCreate } = taskCreate;
 
@@ -37,21 +39,21 @@ const MyList = () => {
   }
 
   useEffect(() => {
-    dispatch(listTasks())
+    dispatch(listTasks());
     if(!userInfo) {
       navigate("/");
     }
   }, [
     dispatch,
-    successCreate,
-    successDelete,
     navigate,
-    userInfo
+    userInfo,
+    successCreate,
+    successDelete
   ])
 
   return (
     <div>
-      <MainScreen title={`Welcome back ${userInfo.name}`}>
+      <MainScreen title={`Welcome back ${userInfo && userInfo.name}`}>
       <Link to="/addtask">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Add a task
