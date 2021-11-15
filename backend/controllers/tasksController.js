@@ -24,16 +24,6 @@ const getTasks = asyncHandler(async (req, res) => {
     }
   });
 
-  const getTaskById = asyncHandler(async (req, res) => {
-    const task = await Task.findById(req.params.id);
-
-    if(task) {
-      res.json(task);
-    } else {
-      res.status(404).json({ message: "Task not found" });
-    }
-  });
-
   const deleteTask = asyncHandler(async (req, res) => {
     const task = await Task.findById(req.params.id);
 
@@ -51,4 +41,4 @@ const getTasks = asyncHandler(async (req, res) => {
     }
   })
 
-  module.exports = { getTasks, createTask, getTaskById, deleteTask };
+  module.exports = { getTasks, createTask, deleteTask };

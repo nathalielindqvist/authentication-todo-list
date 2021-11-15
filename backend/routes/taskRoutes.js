@@ -14,6 +14,6 @@ const router = express.Router();
 
 router.route('/').get(protect, getTasks);
 router.route('/create').post(protect, createTask);
-router.route('/:id').get(getTaskById).delete(protect, deleteTask);
+router.route('/:id').delete(protect, deleteTask);
 
 module.exports = router;
