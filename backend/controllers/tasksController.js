@@ -34,29 +34,6 @@ const getTasks = asyncHandler(async (req, res) => {
     }
   });
 
-  const updateTask = asyncHandler(async (req, res) => {
-    const { title, content, category } = req.body;
-
-    const task = await Task.findById(req.params.id);
-
-    if(task.user.toString() !== req.user._id.toString()) {
-      res.status(401);
-      throw new Error("You can not perform this action");
-    }
-
-    if(task) {
-      task.title = title;
-      task.content = content;
-      task.category = category;
-
-      const updatedTask = await task.save();
-      res.json(updatedTask);
-    } else {
-      res.status(404);
-      throw new Error("Task not found");
-    }
-  });
-
   const deleteTask = asyncHandler(async (req, res) => {
     const task = await Task.findById(req.params.id);
 
@@ -74,4 +51,4 @@ const getTasks = asyncHandler(async (req, res) => {
     }
   })
 
-  module.exports = { getTasks, createTask, getTaskById, updateTask, deleteTask };
+  module.exports = { getTasks, createTask, getTaskById, deleteTask };
