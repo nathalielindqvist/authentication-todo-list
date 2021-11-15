@@ -8,8 +8,11 @@ const LandingPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+  // Retrieves credentials from localStorage, if there are any
   const userInfo = localStorage.getItem("userInfo");
 
+  // If there are credentials in localStorage, the user is logged in
+  // and will be redirected to the list page
   if(userInfo) {
     navigate("/mylist");
   }

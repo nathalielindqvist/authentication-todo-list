@@ -4,8 +4,6 @@ const express = require('express');
 const {
   getTasks,
   createTask,
-  getTaskById,
-  updateTask,
   deleteTask
 } = require('../controllers/tasksController');
 const { protect } = require('../middlewares/authMiddleware');

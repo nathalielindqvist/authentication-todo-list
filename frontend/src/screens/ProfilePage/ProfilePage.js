@@ -20,15 +20,20 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
 
+  // Extracts object userLogin from current userLogin state
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
+  // Extracts objects loading, error and success from current userUpdate state
   const userUpdate = useSelector(state => state.userUpdate);
   const { loading, error, success } = userUpdate;
 
+  // If userInfo is not populated, redirect user to LandingPage
   useEffect(() => {
   if(!userInfo){
     navigate("/")
+
+    // If userInfo is populated, set name, email and pic to local states
   } else {
     setName(userInfo.name);
     setEmail(userInfo.email);
@@ -41,6 +46,7 @@ const ProfilePage = () => {
       return setPicMessage("Please select an image");
     }
 
+    // Config for image hosting on Cloudinary
     setPicMessage(null);
     if(pics.type === 'image/jpeg' || pics.type === 'image/png') {
       const data = new FormData();
@@ -75,11 +81,15 @@ const ProfilePage = () => {
             <Col md={6}>
               <Form onSubmit={submitHandler}>
                 {loading && <Loading />}
+
+                {/* Display success message if user profile was successfully updated */}
                 {success && (
                   <ErrorMessage variant="success">
                     Profile Updated
                     </ErrorMessage>
                 )}
+
+                {/* Display error message related to updating user profile */}
                 {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
                 <Form.Group className="inputField" controlId="name">
                   <Form.Label>Name</Form.Label>

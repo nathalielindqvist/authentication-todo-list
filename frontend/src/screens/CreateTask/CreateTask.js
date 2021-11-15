@@ -18,6 +18,7 @@ const CreateTask = () => {
 
   const navigate = useNavigate();
 
+  // Extracts object loading from current state
   const taskCreate = useSelector(state => state.taskCreate);
   const { loading } = taskCreate;
 
@@ -32,7 +33,7 @@ const CreateTask = () => {
     if (!title || !content || !category){
       setError("Please fill in all the fields");
       return;
-    };
+    }
     dispatch(createTaskAction(title, content, category));
 
     resetHandler();
@@ -46,6 +47,8 @@ const CreateTask = () => {
           <Card.Header>Create a new task</Card.Header>
           <Card.Body>
             <Form onSubmit={submitHandler}>
+
+              {/* Displays error message if there is an error */}
               {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
               <Form.Group className="inputField" controlId="title">
                 <Form.Label>Title</Form.Label>

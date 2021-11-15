@@ -34,10 +34,12 @@ userSchema.pre('save', async function(next) {
     next();
   }
 
+  // Hashes password
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
+// Makes sure passwords match
 userSchema.methods.matchPassword = async function(enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 }

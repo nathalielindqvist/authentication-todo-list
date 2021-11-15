@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+// Generates Json Web Token
 const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET, {
     expiresIn: "30d",

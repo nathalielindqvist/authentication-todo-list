@@ -14,6 +14,7 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
+  // Extract userInfo object from current state
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -32,6 +33,7 @@ const Header = () => {
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
 
+  {/* Only shows  My List and Profile menu options if user is logged in */}
       {userInfo ?
       <Nav className="mr-auto">
         <Link className="nav-link" to="/mylist">My list</Link>
@@ -47,6 +49,7 @@ const Header = () => {
         </NavDropdown>
       </Nav>
       : <Nav>
+        {/* Shows option Login if user is not logged in */}
         <Link className="nav-link" to="/login">Login</Link>
         </Nav>}
     </Navbar.Collapse>

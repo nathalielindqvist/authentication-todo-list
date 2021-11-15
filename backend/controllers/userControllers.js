@@ -5,10 +5,13 @@ const User = require('../models/userModel');
 const generateToken = require('../utils/generateToken');
 
 const registerUser = asyncHandler(async (req, res) => {
+  // Requests credentials from body
   const { name, email, password, pic } = req.body;
 
+  // Finds user via email
   const userExists = await User.findOne({ email });
 
+  // If user is found, throw error
   if(userExists) {
     res.status(400);
     throw new Error("User already exists");
@@ -21,6 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
     pic,
   });
 
+  // If user can be created, assign credentials
   if(user) {
     res.status(201).json({
       _id: user._id,
@@ -36,10 +40,12 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const authUser = asyncHandler(async (req, res) => {
+  // Request credentials from body
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
 
+  // If user exists and password matches, respond with full user object
   if(user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -55,18 +61,26 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 const updateUserProfile = asyncHandler(async (req, res) => {
+  // Find user via unique id
   const user = await User.findById(req.user._id);
+
+  // If user exists, autofill name, email and pic with current credentials.
+  // If input is given, replace current credentials with that
   if(user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     user.pic = req.body.pic || user.pic;
 
+    // Only show the password if it is entered by the user.
+    // Does not autofill current password
     if(req.body.password) {
       user.password = req.body.password;
     }
 
+    // Save updated credentials in variable
     const updatedUser = await user.save();
 
+    // Send updated credentials as response
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,

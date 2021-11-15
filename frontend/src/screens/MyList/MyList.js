@@ -6,6 +6,7 @@ import MainScreen from "../../components/MainScreen";
 import { deleteTaskAction, listTasks } from "../../actions/tasksActions";
 import Loading from "../../components/Loader/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
+import './MyList.css'
 
 
 const MyList = () => {
@@ -14,15 +15,19 @@ const MyList = () => {
 
   const navigate = useNavigate();
 
+  // Extracts objects loading, tasks and error from current taskList state
   const taskList = useSelector(state => state.taskList);
   const { loading, tasks, error} = taskList;
 
+  // Extracts object userInfo from current userLogin state
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
+  // Extracts object success from current taskCreate state
   const taskCreate = useSelector(state => state.taskCreate);
   const { success: successCreate } = taskCreate;
 
+  // Extracts objects loading, error and success from current taskDelete state
   const taskDelete = useSelector(state => state.taskDelete);
   const {
     loading: loadingDelete,
@@ -36,6 +41,8 @@ const MyList = () => {
     }
   }
 
+  // If userInfo is not populated, user is not logged in and will be
+  // redirected to the landing page
   useEffect(() => {
     dispatch(listTasks());
     if(!userInfo) {
@@ -51,31 +58,29 @@ const MyList = () => {
 
   return (
     <div>
+      {/* If userInfo is populated, displays content and users name with title */}
       <MainScreen title={`Welcome back ${userInfo && userInfo.name}`}>
       <Link to="/addtask">
-        <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
+        <Button className="add-button" size="lg">
           Add a task
         </Button>
       </Link>
+
+      {/* Displays error related to deletion, if there is one */}
       {errorDelete && (
         <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
       )}
       {loadingDelete && <Loading />}
+
+      {/* Displays error related to task list, if there is one */}
       {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
       {loading && <Loading />}
       {tasks?.map(task => (
           <Accordion key={task._id}>
             <Accordion.Item eventKey="0">
-              <Card style={{ margin: 10 }}>
-                <Card.Header style={{ display: "flex" }}>
-                  <span style={{
-                    color: "black",
-                    textDecoration: "none",
-                    flex: 1,
-                    cursor: "pointer",
-                    alignSelf: "center",
-                    fontSize: 18,
-                  }}>
+              <Card className="card">
+                <Card.Header className="card-header">
+                  <span className="card-item">
                   <Accordion.Header>{task.title}</Accordion.Header>
                   </span>
                 <div>

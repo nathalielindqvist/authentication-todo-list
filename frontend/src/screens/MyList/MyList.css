@@ -1,0 +1,21 @@
+.card {
+  margin: 10;
+}
+
+.card-header {
+  display: flex;
+}
+
+.card-item {
+  color: black;
+  text-decoration: none;
+  flex: 1;
+  cursor: pointer;
+  align-self: center;
+  font-size: 18;
+}
+
+.add-button {
+  margin-left: 10px;
+  margin-bottom: 6px;
+}

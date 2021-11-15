@@ -12,16 +12,19 @@ import {
 } from "../constants/userConstants";
 import axios from 'axios';
 
+// ---------- LOGIN ----------
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
 
+    // Define content type to be sent with api call
     const config = {
       headers: {
         "Content-type": "application/json"
       },
     };
 
+    // POST api call, response stored in data variable
     const { data } = await axios.post('/api/users/login', {
       email,
       password,
@@ -29,8 +32,10 @@ export const login = (email, password) => async (dispatch) => {
       config,
     );
 
+    // Send data response with dispatch
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
+    // Set localStorage item userInfo with credentials from data variable
     localStorage.setItem("userInfo", JSON.stringify(data));
 
   } catch (error) {
@@ -44,21 +49,27 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+// ---------- LOGOUT ----------
 export const logout = () => async (dispatch) => {
+  // Remove item userInfo from localStorage
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
 };
 
+
+// ---------- REGISTER ----------
 export const register = (name, email, password, pic) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
 
+    // Define content type to be sent with api call
     const config = {
       headers: {
         "Content-type": "application/json",
       },
     };
 
+    // POST api call, response stored in data variable
     const { data } = await axios.post(
       "/api/users",
       { name, pic, email, password },
@@ -67,8 +78,10 @@ export const register = (name, email, password, pic) => async (dispatch) => {
 
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
 
+    // Logs user in right away after registration is complete
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
+    // Set localStorage item userInfo with credentials from data variable
     localStorage.setItem("userInfo", JSON.stringify(data));
 
   } catch (error) {
@@ -82,14 +95,19 @@ export const register = (name, email, password, pic) => async (dispatch) => {
   }
 };
 
+
+// ---------- UPDATE USER ----------
 export const updateProfile = (user) => async(dispatch, getState) => {
   try {
     dispatch({ type: USER_UPDATE_REQUEST });
 
+    // Extracts object userInfo from current state
     const {
       userLogin: { userInfo },
     } = getState();
 
+    // Defines content type and
+    // extracts users token to be sent as authorization in api call
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -97,12 +115,15 @@ export const updateProfile = (user) => async(dispatch, getState) => {
       },
     };
 
+    // POST api call with current user sent as argument, response stored in data variable
     const { data } = await axios.post("/api/users/profile", user, config);
 
     dispatch({ type: USER_UPDATE_SUCCESS, payload: data});
 
+    // Makes sure user stays logged in after updated credentials
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data});
 
+    // Set item userInfo in localStorage with new credentials
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({

@@ -8,8 +8,13 @@ const taskRoutes = require('./routes/taskRoutes');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware')
 
 const app = express();
+
+// Enables the use of .env file
 dotenv.config();
+
+// Enables connection to database
 connectDB();
+
 app.use(express.json());
 
 app.get('/', (req, res) => {

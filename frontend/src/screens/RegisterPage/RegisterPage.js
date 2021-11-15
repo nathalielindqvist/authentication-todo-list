@@ -23,9 +23,11 @@ const RegisterPage = () => {
 
   const dispatch = useDispatch();
 
+  // Extract objects loading, error and userInfo from current state
   const userRegister = useSelector(state => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
+  // If userInfo is populated, redirect user to LandingPage
   useEffect(() => {
     if (userInfo) {
       navigate("/");
@@ -50,6 +52,7 @@ const RegisterPage = () => {
       return setPicMessage("Please select an image");
     }
 
+    // Config for image hosting on Cloudinary
     setPicMessage(null);
     if(pics.type === 'image/jpeg' || pics.type === 'image/png') {
       const data = new FormData();
@@ -74,7 +77,11 @@ const RegisterPage = () => {
     <div>
      <MainScreen title="REGISTER">
       <div className="loginContainer">
+
+        {/* Display error from state, if there is one */}
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+
+        {/* Display message of passwords do not match */}
         {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
         {loading && <Loading />}
         <Form onSubmit={submitHandler}>
@@ -118,6 +125,7 @@ const RegisterPage = () => {
             />
           </Form.Group>
 
+          {/* Display error related to Cloudinary config, if there is one */}
           {picMessage && (
             <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
           )}

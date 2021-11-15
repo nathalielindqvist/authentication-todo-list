@@ -10,16 +10,18 @@ import './LoginPage.css';
 
 const LoginPage = () => {
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 
 const dispatch = useDispatch();
 
+// Extracts objects loading, error and userInfo from current state
 const userLogin = useSelector(state => state.userLogin);
 const { loading, error, userInfo } = userLogin;
 
+// If userInfo is populated, user will be redirected to LandingPage
 useEffect(() => {
  if(userInfo) {
   navigate("/")
@@ -36,6 +38,8 @@ const submitHandler = async (e) => {
     <div>
       <MainScreen title='LOGIN'>
         <div className="loginContainer">
+
+          {/* Displays error message. if there is one */}
           {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
           {loading && <Loading />}
           <Form onSubmit={submitHandler}>
