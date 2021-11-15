@@ -11,11 +11,11 @@ const getTasks = asyncHandler(async (req, res) => {
   const createTask = asyncHandler(async (req, res) => {
     const { title, content, category } = req.body;
 
-      const task = new Task({ user: req.user._id, title, content, category });
+    const task = new Task({ user: req.user._id, title, content, category });
 
-      const createdTask = await task.save();
+    const createdTask = await task.save();
 
-      res.status(201).json(createdTask);
+    res.status(201).json(createdTask);
 
   });
 
