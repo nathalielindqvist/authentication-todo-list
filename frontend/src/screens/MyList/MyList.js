@@ -20,8 +20,6 @@ const MyList = () => {
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
-  // const userInfo = localStorage.getItem("userInfo");
-
   const taskCreate = useSelector(state => state.taskCreate);
   const { success: successCreate } = taskCreate;
 
