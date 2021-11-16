@@ -6,6 +6,7 @@ import { register } from '../../actions/userActions';
 import ErrorMessage from '../../components/ErrorMessage';
 import Loading from '../../components/Loader/Loading';
 import MainScreen from '../../components/MainScreen'
+import '../LoginPage/LoginPage.css'
 
 const RegisterPage = () => {
 
@@ -85,7 +86,7 @@ const RegisterPage = () => {
         {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
         {loading && <Loading />}
         <Form onSubmit={submitHandler}>
-          <Form.Group controlId="name">
+          <Form.Group className="input-field" controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="name"
@@ -95,7 +96,7 @@ const RegisterPage = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group className="input-field" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -105,7 +106,7 @@ const RegisterPage = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group className="input-field" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -115,7 +116,7 @@ const RegisterPage = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="confirmPassword">
+          <Form.Group className="input-field" controlId="confirmPassword">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
@@ -129,7 +130,7 @@ const RegisterPage = () => {
           {picMessage && (
             <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
           )}
-          <Form.Group controlId="pic">
+          <Form.Group className="input-field" controlId="pic">
             <Form.Label>Profile Picture</Form.Label>
             <Form.Control type="file"
               onChange={(e) => postDetails(e.target.files[0])}
