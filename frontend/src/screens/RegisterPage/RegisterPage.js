@@ -27,10 +27,10 @@ const RegisterPage = () => {
   const userRegister = useSelector(state => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
-  // If userInfo is populated, redirect user to LandingPage
+  // If userInfo is populated, redirect user to task list page
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      navigate("/mylist");
     }
   }, [navigate, userInfo])
 

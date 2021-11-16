@@ -21,10 +21,10 @@ const dispatch = useDispatch();
 const userLogin = useSelector(state => state.userLogin);
 const { loading, error, userInfo } = userLogin;
 
-// If userInfo is populated, user will be redirected to LandingPage
+// If userInfo is populated, user will be redirected to task list page
 useEffect(() => {
  if(userInfo) {
-  navigate("/")
+  navigate("/mylist")
  }
 }, [navigate, userInfo])
 
